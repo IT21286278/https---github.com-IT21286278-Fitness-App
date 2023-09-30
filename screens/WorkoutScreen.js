@@ -56,6 +56,9 @@ const WorkoutScreen = () => {
       </ScrollView>
 
       <Pressable
+        onPress={() =>
+          navigation.navigate('Fit', { excercises: route.params.excersises })
+        }
         style={{
           backgroundColor: 'blue',
           padding: 10,
