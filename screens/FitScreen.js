@@ -6,8 +6,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { FinessItems } from '../Context';
 
 const FitScreen = () => {
   const route = useRoute();
@@ -15,6 +16,16 @@ const FitScreen = () => {
   const excercises = route.params.excercises;
   const currentExcercise = excercises[index];
   const navigation = useNavigation();
+  const {
+    completedWorkouts,
+    setCompletedWorkouts,
+    Workout,
+    setWorkout,
+    caloriesBurnt,
+    setCaloriesBurnt,
+    minutesWorkedOut,
+    setMinutesWorkedOut,
+  } = useContext(FinessItems);
   return (
     <SafeAreaView>
       <Image
@@ -75,7 +86,10 @@ const FitScreen = () => {
         <Pressable
           onPress={() => {
             navigation.navigate('Rest');
-
+            setCompletedWorkouts([...completedWorkouts, currentExcercise.name]);
+            setWorkout(Workout + 1);
+            setMinutesWorkedOut(minutesWorkedOut + 2.5);
+            setCaloriesBurnt(caloriesBurnt + 6.3);
             setTimeout(() => {
               setIndex(index + 1);
             }, 2000);

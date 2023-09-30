@@ -7,13 +7,15 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { FinessItems } from '../Context';
 
 const WorkoutScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const { completedWorkouts, setCompletedWorkouts } = useContext(FinessItems);
   return (
     <>
       <ScrollView
@@ -44,21 +46,31 @@ const WorkoutScreen = () => {
             />
 
             <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 17 }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 17, width: 170 }}>
                 {item.name}
               </Text>
               <Text style={{ marginTop: 4, color: 'gray', fontSize: 18 }}>
                 X{item.sets}
               </Text>
             </View>
+
+            {completedWorkouts.includes(item.name) ? (
+              <Ionicons
+                style={{ marginLeft: 'auto', marginRight: 10, marginLeft: 40 }}
+                name="checkmark-circle-outline"
+                size={28}
+                color="green"
+              />
+            ) : null}
           </Pressable>
         ))}
       </ScrollView>
 
       <Pressable
-        onPress={() =>
-          navigation.navigate('Fit', { excercises: route.params.excersises })
-        }
+        onPress={() => {
+          navigation.navigate('Fit', { excercises: route.params.excersises });
+          setCompletedWorkouts([]);
+        }}
         style={{
           backgroundColor: 'blue',
           padding: 10,

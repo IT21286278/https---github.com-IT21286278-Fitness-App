@@ -6,12 +6,18 @@ import {
   View,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import FitnessCards from '../components/FitnessCards';
+import { FinessItems } from '../Context';
 
 const HomeScreen = () => {
+  const { Workout, caloriesBurnt, minutesWorkedOut } = useContext(FinessItems);
+
   return (
-    <ScrollView style={{ marginTop: 50 }}>
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      style={{ marginTop: 50 }}
+    >
       <View
         style={{
           backgroundColor: '#CD853F',
@@ -40,7 +46,7 @@ const HomeScreen = () => {
                 fontSize: 18,
               }}
             >
-              0
+              {Workout}
             </Text>
             <Text
               style={{
@@ -61,7 +67,7 @@ const HomeScreen = () => {
                 fontSize: 18,
               }}
             >
-              0
+              {caloriesBurnt}
             </Text>
             <Text
               style={{
@@ -82,7 +88,7 @@ const HomeScreen = () => {
                 fontSize: 18,
               }}
             >
-              0
+              {minutesWorkedOut}
             </Text>
             <Text
               style={{
